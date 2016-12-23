@@ -2,6 +2,8 @@
 $(document).ready( function() {
   var dimensions = -1;
   var unitSize = -1;
+  var currentColor = "black";
+  var isErase = false;
   repaint();
 
   //Remakes the grid with the dimensions
@@ -50,6 +52,21 @@ $(document).ready( function() {
     deleteUnits();
     reset();
   })
+
+  $("#erase").click(function () {
+    if(!isErase) {
+      $(".unit").hover(function() {
+        $(this).css("background-color", "#FFF");
+      });
+      isErase = true;
+    }
+    else {
+      $(".unit").hover(function() {
+        $(this).css("background-color", currentColor);
+      });
+      isErase = false;
+    }
+  });
 
 
 });
