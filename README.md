@@ -1,1 +1,1 @@
-A fun sketchpad with multiple options. Built with jQuery.
+A fun sketchpad as described in The Odin Project, but with more functionality. Built with HTML, CSS, jQuery.
