@@ -4,6 +4,7 @@ $(document).ready( function() {
   var unitSize = -1;
   var currentColor = "black";
   var isErase = false;
+  var isGradient = false;
   repaint();
 
   //Remakes the grid with the dimensions
@@ -75,6 +76,7 @@ $(document).ready( function() {
   });
 
   $("#freestyle").click(function() {
+    reset();
     $("#color_picker").show();
   });
 
@@ -115,35 +117,17 @@ $(document).ready( function() {
 
   //Greyscale
   $("#greyscale").click(function() {
+    isGradient = !isGradient;
     console.log("greyscale");
-    setHoverColor("#000");
+    $(".unit").css("background-color", "#000000");
+    $(".unit").css({'opacity': 0.0});
     $(".unit").hover(function() {
       var color = $(this).css("background-color");
-      //
-      // if(color === "rgb(255, 255, 255)") {
-      //   console.log("color is white!");
-      //   $(this).css("background-color", "#000000");
-      //   $(this).css({'opacity': 0.1});
-      // }
-      // else {
-        var currentOpacity = $(this).css('opacity');
-        console.log(currentOpacity);
-        if(currentOpacity == 1) {
-          console.log("if loop")
-          currentOpacity = "0.1";
-          $(this).css({'opacity': currentOpacity});
-        }
-        else if (currentOpacity > 0) {
-          console.log("inc opacity from " + currentOpacity);
-          console.log(parseFloat(currentOpacity) + " blah");
-          currentOpacity= (parseFloat(currentOpacity, 10) + 0.1);
-          console.log(currentOpacity + " is the new opacity");
-          $(this).css({'opacity': currentOpacity});
-        }
-      //}
-    });
-
-
+      var currentOpacity = $(this).css('opacity');
+      currentOpacity= (parseFloat(currentOpacity, 10) + 0.1);
+      $(this).css({'opacity': currentOpacity});
+    },
+  function() {});
   });
 
   //http://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
