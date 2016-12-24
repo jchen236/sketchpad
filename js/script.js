@@ -54,11 +54,13 @@ $(document).ready( function() {
   $("#newgrid").click(function () {
     deleteUnits();
     repaint();
+    $("#color_picker").hide();
   });
 
   $("#reset").click(function () {
     deleteUnits();
     reset();
+    $("#color_picker").hide();
   })
 
   $("#erase").click(function () {
@@ -72,6 +74,9 @@ $(document).ready( function() {
     }
   });
 
+  $("#freestyle").click(function() {
+    $("#color_picker").show();
+  });
 
   $("#color_submit").click(function() {
     var color = $("#color_input").val();
@@ -90,6 +95,55 @@ $(document).ready( function() {
       setHoverColor(color);
       return false;
     }
+  });
+
+  function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+      color += letters[Math.round(Math.random() * 15)];
+      }
+    return color;
+  }
+  //Beautiful colors!
+  $("#rainbow").click(function() {
+    $(".unit").hover(function() {
+      $(this).css("background-color", getRandomColor());
+    });
+  });
+
+
+  //Greyscale
+  $("#greyscale").click(function() {
+    console.log("greyscale");
+    setHoverColor("#000");
+    $(".unit").hover(function() {
+      var color = $(this).css("background-color");
+      //
+      // if(color === "rgb(255, 255, 255)") {
+      //   console.log("color is white!");
+      //   $(this).css("background-color", "#000000");
+      //   $(this).css({'opacity': 0.1});
+      // }
+      // else {
+        var currentOpacity = $(this).css('opacity');
+        console.log(currentOpacity);
+        if(currentOpacity == 1) {
+          console.log("if loop")
+          currentOpacity = "0.1";
+          $(this).css({'opacity': currentOpacity});
+        }
+        else if (currentOpacity > 0) {
+          console.log("inc opacity from " + currentOpacity);
+          console.log(parseFloat(currentOpacity) + " blah");
+          currentOpacity= (parseFloat(currentOpacity, 10) + 0.1);
+          console.log(currentOpacity + " is the new opacity");
+          $(this).css({'opacity': currentOpacity});
+        }
+      //}
+    });
+
+
   });
 
   //http://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
@@ -112,8 +166,9 @@ $(document).ready( function() {
     if(h)return "rgb("+r((t[0]-f[0])*p+f[0])+","+r((t[1]-f[1])*p+f[1])+","+r((t[2]-f[2])*p+f[2])+(f[3]<0&&t[3]<0?")":","+(f[3]>-1&&t[3]>-1?r(((t[3]-f[3])*p+f[3])*10000)/10000:t[3]<0?f[3]:t[3])+")");
     else return "#"+(0x100000000+(f[3]>-1&&t[3]>-1?r(((t[3]-f[3])*p+f[3])*255):t[3]>-1?r(t[3]*255):f[3]>-1?r(f[3]*255):255)*0x1000000+r((t[0]-f[0])*p+f[0])*0x10000+r((t[1]-f[1])*p+f[1])*0x100+r((t[2]-f[2])*p+f[2])).toString(16).slice(f[3]>-1||t[3]>-1?1:3);
 }
+console.log(shadeBlendConvert(-0.1, "#FFF"));
 
-console.log(shadeBlendConvert(-0.10, "#FFFFFF"));
+
 
 
 });

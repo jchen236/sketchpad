@@ -13,6 +13,9 @@ body {
   margin: 10px 20px;
 }
 
+#color_picker {
+  display: none;
+}
 
 #container {
   border: 1px solid black;
