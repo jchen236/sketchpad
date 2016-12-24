@@ -1,5 +1,7 @@
 body {
-  background-color: red;
+  background-color: #44AABB;
+  font-family: Verdana;
+  font-size: 14pt;
 }
 
 
@@ -10,11 +12,17 @@ body {
 .button {
   font-family: Verdana;
   font-size: 14pt;
-  margin: 10px 20px;
+  margin: 10px 20px 10px 20px;
 }
 
 #color_picker {
   display: none;
+
+
+}
+
+#picker {
+  text-align: center;
 }
 
 #container {
@@ -29,7 +37,7 @@ body {
   right: 0;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 60px;
+  margin-top: 30px;
 }
 
 .unit {

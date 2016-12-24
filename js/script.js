@@ -5,6 +5,7 @@ $(document).ready( function() {
   var currentColor = "black";
   var isErase = false;
   var isGradient = false;
+  var isFreestyle = false;
   repaint();
 
   //Remakes the grid with the dimensions
@@ -34,6 +35,9 @@ $(document).ready( function() {
     $(".unit").css("height", unitSize + "px");
     setCurrentColor("#000000");
     setHoverColor("#000000");
+    isFreestyle = false;
+    isGradient = false;
+    isErase = false;
   }
 
   //Prompts for dimension and calls reset()
@@ -76,8 +80,17 @@ $(document).ready( function() {
   });
 
   $("#freestyle").click(function() {
-    reset();
-    $("#color_picker").show();
+    if(!isFreestyle) {
+      console.log("showing");
+      $("#color_picker").show();
+      isFreestyle = true;
+    }
+    else {
+      console.log("hiding");
+      $("#color_picker").hide();
+      isFreestyle = false;
+
+    }
   });
 
   $("#color_submit").click(function() {
@@ -116,18 +129,33 @@ $(document).ready( function() {
 
 
   //Greyscale
-  $("#greyscale").click(function() {
-    isGradient = !isGradient;
-    console.log("greyscale");
-    $(".unit").css("background-color", "#000000");
-    $(".unit").css({'opacity': 0.0});
-    $(".unit").hover(function() {
-      var color = $(this).css("background-color");
-      var currentOpacity = $(this).css('opacity');
-      currentOpacity= (parseFloat(currentOpacity, 10) + 0.1);
-      $(this).css({'opacity': currentOpacity});
-    },
-  function() {});
+  $("#gradient").click(function() {
+    if(!isGradient) {
+      $(".unit").unbind('mouseenter mouseleave');
+      $(".unit").css("background-color", currentColor);
+      $(".unit").css({'opacity': 0});
+      $(".unit").hover(function() {
+        var color = $(this).css("background-color");
+        console.log("current color is " + color);
+        var currentOpacity = $(this).css('opacity');
+        console.log("currentOp is " + currentOpacity);
+        currentOpacity= (parseFloat(currentOpacity) + 0.1);
+        console.log("new opacity is " + currentOpacity);
+        $(this).css({'opacity': currentOpacity});
+      },
+    function() {return false;});
+    isGradient = true;
+    console.log("gradient true");
+    }
+    else {
+      $(".unit").hover(function() {
+        $(this).css("background-color", currentColor);
+        $(this).css({'opacity': 1.0});
+      },
+    function() {});
+      isGradient = false;console.log("gradient false");
+    }
+
   });
 
   //http://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
